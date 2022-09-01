@@ -4,13 +4,13 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+/*
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "bit_operacion_bitacora")
+@Table(name = "bit_operacion_bitacora")*/
 public class BitOperacionBitacora implements Serializable {
 
     @Id

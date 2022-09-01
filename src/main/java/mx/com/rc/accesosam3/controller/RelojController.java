@@ -25,4 +25,9 @@ public class RelojController {
     public ResponseEntity<List<RelojEmpleadosDto>> findByIdUname (@PathVariable String idUname){
         return new ResponseEntity<>(this.relojService.findByIdUname(idUname), HttpStatus.OK);
     }
+
+    @GetMapping("/{numeroEmpleado}")
+    public ResponseEntity<RelojEmpleadosDto> findByNumeroEmpleado (@PathVariable Integer numeroEmpleado){
+        return new ResponseEntity<>(this.relojService.findByNumeroEmpleado(numeroEmpleado), HttpStatus.OK);
+    }
 }

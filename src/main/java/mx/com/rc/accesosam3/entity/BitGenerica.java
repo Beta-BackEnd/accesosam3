@@ -1,17 +1,16 @@
 package mx.com.rc.accesosam3.entity;
 
-import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.*;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
+/*
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "bit_generica")
+@Table(name = "bit_generica")*/
 public class BitGenerica implements Serializable {
 
     @Id

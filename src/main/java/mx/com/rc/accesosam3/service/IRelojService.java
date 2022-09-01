@@ -7,4 +7,6 @@ import java.util.List;
 public interface IRelojService {
 
     List<RelojEmpleadosDto> findByIdUname(String idUname);
+
+    RelojEmpleadosDto findByNumeroEmpleado(Integer numeroEmpleado);
 }

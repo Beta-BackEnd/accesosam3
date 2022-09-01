@@ -2,7 +2,6 @@ package mx.com.rc.accesosam3.external;
 
 import mx.com.rc.accesosam3.dto.RelojEmpleadosDto;
 import mx.com.rc.accesosam3.entity.RolUsuario;
-import mx.com.rc.accesosam3.entity.Usuario;
 import mx.com.rc.accesosam3.service.IRolUsuarioService;
 import mx.com.rc.accesosam3.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +60,43 @@ public class RelojRepository {
             e.printStackTrace();
         }
         return listaEmplados;
+    }
+
+
+    public RelojEmpleadosDto findByNumeroEmpleado(Integer numeroEmpleado) {
+        RelojEmpleadosDto empleado = new RelojEmpleadosDto();
+        String query = "SELECT * FROM reloj_checador.vista_empleados WHERE numero_empleado = '" + numeroEmpleado + "' ";
+        try {
+            Connection conexion = conectar();
+            Statement st = conexion.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                Integer numEmpleado = rs.getInt("numero_empleado");
+                String nombreCompleto = rs.getString("nombre_completo");
+                String puesto = rs.getString("puesto");
+                Integer codigoPuesto = rs.getInt("codigo_puesto");
+                String statusReloj = rs.getString("status");
+
+
+                empleado.setNumEmpleado(numEmpleado);
+                empleado.setNombreCompleto(nombreCompleto);
+                empleado.setPuestoReloj(puesto);
+                empleado.setCodigoPuesto(codigoPuesto);
+                empleado.setStatusReloj(statusReloj);
+                //hacer la consulta de la busqueda de rol por usuario
+                RolUsuario rolUsuarioSbd = (RolUsuario) this.rolUsuarioService.queryFindByNumeroEmpelado(numEmpleado);
+                if (rolUsuarioSbd != null) {
+                    empleado.setIdRol(rolUsuarioSbd.getRol().getIdRol());
+                    empleado.setRolDescripcion(rolUsuarioSbd.getRol().getDescripcion());
+                    empleado.setUsuario(rolUsuarioSbd.getUsuario().getUsuario());
+                    empleado.setIdUname(rolUsuarioSbd.getUsuario().getIdUname());
+                    empleado.setStatusSam(rolUsuarioSbd.getUsuario().getStatus());
+                }
+
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+        return empleado;
     }
 }
